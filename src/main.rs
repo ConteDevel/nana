@@ -3,13 +3,15 @@ extern crate clap;
 extern crate nanalib;
 
 use clap::App;
-use nanalib::test;
+use std::fs;
+use nanalib::run;
 
 fn main() {
     let yaml = load_yaml!("cli.yml");
     let matches = App::from_yaml(yaml).get_matches();
-    if matches.is_present("INPUT") {
-        println!("An input file was specified");
+    let filename = matches.value_of("INPUT").unwrap();
+    match fs::read_to_string(filename) {
+        Ok(source) => run(&source),
+        Err(_) => println!("Cannot open file: {}", filename)
     }
-    test();
 }
