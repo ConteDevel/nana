@@ -1,3 +1,4 @@
+#![feature(or_patterns)]
 mod fsm;
 mod tokenizer;
 
