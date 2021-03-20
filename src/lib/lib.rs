@@ -1,3 +1,10 @@
+mod tokenizer;
+
+use tokenizer::tokenize;
+
 pub fn run(source: &str) {
-    println!("{}", source);
+    let mut idx: usize = 0;
+    while let Some(token) = tokenize(source, &mut idx) {
+        println!("{}", token);
+    }
 }
