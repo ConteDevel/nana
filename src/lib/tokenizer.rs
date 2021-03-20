@@ -1,25 +1,27 @@
-fn parse_str(source: &str, start: usize, idx: &mut usize) -> String {
-    while let Some(ch) = source.chars().nth(*idx) {
-        if !ch.is_alphanumeric() {
-            break;
-        }
-        *idx += 1;
-    }
-    return source.chars().skip(start).take(*idx - start).collect();
+use crate::fsm::Fsm;
+
+type State = fn(&str, &mut usize) -> Option<String>;
+
+pub struct Tokenizer {
+    fsm: Fsm<State>
 }
 
-pub fn tokenize(source: &str, mut idx: &mut usize) -> Option<String> {
-    let mut start = *idx;
-    while let Some(ch) = source.chars().nth(*idx) {
-        if ch == '\'' || ch == ':' || ch == '=' {
-            *idx += 1;
-            return Some(String::from(ch));
-        } else if ch.is_alphanumeric() {
-            return Some(parse_str(&source, start, &mut idx));
-        } else {
-            *idx += 1;
-            start = *idx;
+fn init(source: &str, idx: &mut usize) -> Option<String> {
+    return None;
+}
+
+impl Tokenizer {
+
+    pub fn new() -> Self {
+        Self {
+            fsm: Fsm::<State>::new(init)
         }
     }
-    return None;
+
+    pub fn next(&mut self, source: &str, mut idx: &mut usize) -> Option<String> {
+        if let Some(state) = self.fsm.top() {
+            return state(&source, &mut idx);
+        }
+        return None;
+    }
 }
