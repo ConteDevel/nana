@@ -1,4 +1,3 @@
-#![feature(or_patterns)]
 mod fsm;
 mod tokenizer;
 
@@ -8,6 +7,6 @@ pub fn run(source: &str) {
     let mut idx: usize = 0;
     let mut tokenizer = Tokenizer::new();
     while let Some(token) = tokenizer.next(&source, &mut idx) {
-        println!("{}", token);
+        println!("{:?}", token);
     }
 }

@@ -1,4 +1,5 @@
 mod io
+mod global as g
 
 Option = <.Some(Any) | .None>
 Real = Float
@@ -23,3 +24,6 @@ main = (argv: [Str]) -> Int {
     # {id:1,name:'John',email:'john@contedevel.com',birthdate:(1,1,1990)}
     ret 0
 }
+
+if g.name == '__MAIN__':
+    main(g.argv)

@@ -1,63 +1,70 @@
-use crate::fsm::Fsm;
+use std::fmt;
 
-type State = fn(&mut Tokenizer, &str, &mut usize) -> Option<String>;
+#[derive(Debug)]
+pub enum EToken {
+    Id(usize),
+    Int(i64),
+    Pls,
+    Mns,
+    Div,
+    Mul,
+}
 
 pub struct Tokenizer {
-    fsm: Fsm<State>
+}
+
+impl fmt::Display for EToken {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "{}", self)
+    }
 }
 
 impl Tokenizer {
 
     pub fn new() -> Self {
-        Self {
-            fsm: Fsm::<State>::new(Self::init)
-        }
+        Self {}
     }
 
-    pub fn next(&mut self, source: &str, mut idx: &mut usize) -> Option<String> {
-        if let Some(state) = self.fsm.top() {
-            return state(self, &source, &mut idx);
-        }
-        return None;
-    }
-
-    fn init(tokenizer: &mut Tokenizer, source: &str, mut idx: &mut usize) -> Option<String> {
+    pub fn next(&mut self, source: &str, mut idx: &mut usize) -> Option<EToken> {
         match source.chars().nth(*idx) {
-            Some('a'..='z'|'A'..='Z') => tokenizer.fsm.push(Tokenizer::name),
-            Some('\'') => tokenizer.fsm.push(Tokenizer::string),
-            Some(_) => tokenizer.fsm.push(Tokenizer::special),
+            Some('0'..='9') => self.uint(&source, &mut idx),
+            Some('+'|'-'|'*'|'/') => self.operator(&source, &mut idx),
+            Some(_) => self.name(&source, &mut idx),
             _ => return None
         }
-        return tokenizer.next(&source, &mut idx);
     }
 
-    fn string(tokenizer: &mut Tokenizer, source: &str, idx: &mut usize) -> Option<String> {
-        tokenizer.fsm.pop();
+    fn operator(&mut self, source: &str, idx: &mut usize) -> Option<EToken> {
+        let result = match source.chars().nth(*idx) {
+            Some('+') => Some(EToken::Pls),
+            Some('-') => Some(EToken::Mns),
+            Some('*') => Some(EToken::Mul),
+            Some('/') => Some(EToken::Div),
+            _ => None
+        };
+        *idx += 1;
+        return result
+    }
+
+    fn uint(&mut self, source: &str, idx: &mut usize) -> Option<EToken> {
         let start = *idx;
         *idx += 1;
-        while let Some(ch) = source.chars().nth(*idx) {
-            *idx += 1;
-            if ch == '\'' {
-                return Some(source.chars().skip(start).take(*idx - start).collect())
-            }
+        while let Some('0'..='9') = source.chars().nth(*idx) {
+            *idx += 1
         }
-        return None;
+        return match source.chars().skip(start).take(*idx - start).collect::<String>().parse::<i64>() {
+            Ok(value) => Some(EToken::Int(value)),
+            _ => None
+        }
     }
 
-    fn special(tokenizer: &mut Tokenizer, source: &str, idx: &mut usize) -> Option<String> {
-        tokenizer.fsm.pop();
-        let result = Some(String::from(source.chars().nth(*idx).unwrap()));
-        *idx += 1;
-        return result;
-    }
-
-    fn name(tokenizer: &mut Tokenizer, source: &str, idx: &mut usize) -> Option<String> {
-        tokenizer.fsm.pop();
-        let start = *idx;
+    fn name(&mut self, source: &str, idx: &mut usize) -> Option<EToken> {
+        // let start = *idx;
         *idx += 1;
         while let Some('a'..='z'|'A'..='Z') = source.chars().nth(*idx) {
             *idx += 1
         }
-        return Some(source.chars().skip(start).take(*idx - start).collect())
+        // return Some(source.chars().skip(start).take(*idx - start).collect())
+        return Some(EToken::Id(1))
     }
 }

@@ -5,16 +5,19 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "UNIX-like Launch",
-            "type": "cppdbg",
+            "type": "lldb",
             "request": "launch",
-            "program": "${workspaceRoot}/target/debug/nana",
-            "args": ["samples/var.nana"],
-            "stopAtEntry": false,
+            "name": "Debug",
+            "program": "${workspaceFolder}/target/debug/nana",
+            "windows": {
+                "program": "${workspaceFolder}/target/debug/nana.exe"
+            },
+            "args": ["samples/math.nana"],
             "cwd": "${workspaceFolder}",
-            "environment": [],
-            "externalConsole": false,
-            "MIMode": "lldb",
+            "stopOnEntry": false,
+            "sourceLanguages": [
+                "rust"
+            ],
             "preLaunchTask": "cargo build"
         }
     ]
