@@ -4,17 +4,17 @@
 
 The Nana is a weak-typed language that means it's not necessary to always specify data types but these annotations help to restrict a set of available values in variables and improve stability and self-documentation of the code.
 
-## Bool
+## Bit
 
-The `Bool` is a logical type that accepts values: `true` and `false`.
+The `Bit` is a logical type that accepts values: `TRUE` and `FALSE`.
 
 ## Int
 
 The `Int` is an integer type that accepts any integer numbers. Nana has a built-in support of long arithmetics, so `Int` has not explicit limits.
 
-## Float
+## Num
 
-The `Float` is a type to store real numbers, i.e. `-1.0`, `3.14` or `1.67E-27`. As with `Int` type, Nana supports long arithmetics for `Float`.
+The `Num` is a type to store real numbers, i.e. `-1.0`, `3.14` or `1.67E-27`. As with `Int` type, Nana supports long arithmetics for `Num`.
 
 ## Str
 
@@ -22,32 +22,31 @@ The `Str` allows to store text values, i.e. `'Hello, World!'`, use single quotes
 
 ## List
 
-In Nana a list is an ordered sequence of elements, use `[]` to declare a list data type or create a new list, i.e. `a: [Str] = ['Hello', 'World']`. List indexing starts with zero (`0`), to access a list element use `.`: `a.0` or `a.(0)` when we need to use an expression (for example, `a.(1 + 2)`).
+A list is an ordered sequence of elements, use `[]` to declare a list data type or create a new list, i.e. `a: [Str] = ['Hello', 'World']`. List indexing starts with zero (`0`), to access a list element use `[]`.
 
 ## Tuple
 
-A tuple in Nana is a group of logically related elements, use `()` to declare a tuple data type or create a new tuple and `.` to access a tuple element. As in list case, an indexing starts with zero (`0`). For example:
+A tuple is a group of logically related elements, use `()` to declare a tuple data type or create a new tuple and `[]` to access a tuple element. As in list case, an indexing starts with zero (`0`). For example:
 
 ```
-t: (Str, Float) = ('Hello, World!', 3.14)
-t.0
-t.(1 + 2)
+t: (Str, Num) = ('Hello, World!', 3.14)
+t[0]
+t[1 + 2]
 ```
 
 ## Dictionary
 
-A dictionary is a data structure to store key-value pairs, notice all key must be unique in context of a single dictionary. Use `{}` to declare a dictionary data type or create a new dictionary and `.` to access a dictionary value by key. For example:
+A dictionary is a data structure to store key-value pairs, notice all key must be unique in context of a single dictionary. Use `{}` to declare a dictionary data type or create a new dictionary and `[]` to access a dictionary value by key. For example:
 
 ```
 d: {Str: Int} = {
     'Key1': 1,
     'Key2': 2
 }
-d.'Key1'
-d.('Key1')
+d['Key1']
 ```
 
-## Fixed dictionary
+## Constrained dictionary
 
 Nana allows to specify keys explicitly as it's shown below:  
 
@@ -60,9 +59,9 @@ d2: {'key1': Int, 'key2': Int} = {
     'key1': 1,
     'key2': 2
 }
-d3: {1: Bool, 0: Bool} = {
-    1: true,
-    0: false
+d3: {1: Bit, 0: Bit} = {
+    1: TRUE,
+    0: FALSE
 }
 ```
 
@@ -99,29 +98,31 @@ Bot = {
 Client = <User, Bot>
 ```
 
-## Unit
+## Fun
 
-A unit data type allows to declare a function signature, it can be used to restrict a set of functions that can be passed to variable or as an argument of called function. Use a `(type) -> type` schema to declare `Unit` where the first type is arguments and the last is a returned value of the function. By default Nana function returns an empty tuple `()`. Look at examples below to learn more:
+A `Fun` data type allows to declare a function signature, it can be used to restrict a set of functions that can be passed to variable or as an argument of called function. Use a `(type) -> type` schema to declare `Fun` where the first type is arguments and the last is a returned value of the function. By default Nana function returns a tuple with zero `(0)`. Look at examples below to learn more:
 
 ```
-fun foo():
+foo() {
     ret ()
+}
 
-fun boo(a: Str) -> Bool:
-    ret false
+boo(a: Str) -> Bit {
+    ret FALSE
+}
 
 callbackFoo: () -> () = foo
-callbackBoo: (Str) -> Bool = boo
+callbackBoo: (Str) -> Bit = boo
 ```
 
-## Dyn
+## Any
 
-`Dyn` is a dynamic type that can be linked with any other type, use it when variable or function argument must be able to accept any type. Notice that's not required to explicitly specify `Dyn` type, by default if other type is not proved Nana mark a variable as `Dyn` type. For example:
+`Any` is a dynamic type that can be linked with any other type, use it when variable or function argument must be able to accept any type. Notice that's not required to explicitly specify `Any` type, by default if other type is not proved Nana marks a variable as `Any` type. For example:
 
 ```
-a: Dyn = 'Hello, World!'
+a: Any = 'Hello, World!'
 a = 3.14
-// Or
+# Or
 b = 'Hello, World!'
 b = 3.14
 ```

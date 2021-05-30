@@ -15,4 +15,6 @@ io.print('Hello, World!')
 # Contents
 
 * [Data types](TYPES.md)
+* [Access modifiers](ACCESS_MODIFIERS.md)
+* [Variables](VARIABLES.md)
 * [Grammar](GRAMMAR.md)

@@ -1,1 +1,46 @@
-str: Str = 'Test'
+mod io
+
+# Variables&Constants
+
+bool_var: Bool = false
+int_var: Int = 5
+str_var: Str = "Nana's string"
+
+pub modified_var?: Bool = true
+
+# Functions
+
+main = (argv: [str]) {
+    foreach (argv) (arg) {
+        io.println('{}', arg) 
+    }
+}
+
+if = (exp: Bool, callback: ()): Bool {
+    ret exp and callback()
+}
+
+foreach = (array: [Any], callback: (Any)) {
+    len (array) > 0 and callback (array[1]) and foreach (array[1:], callback)
+}
+
+loop = (callback: (Any)) {
+    
+}
+
+# Conditions
+
+if (ENTRY == 'main') {
+    main ()
+} or if (ENTRY == 'start') {
+
+} or {
+    
+}
+
+# Loops
+
+foreach (array) (element) {
+    # Body
+}
+
