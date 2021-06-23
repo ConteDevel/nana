@@ -1,7 +1,7 @@
 name: Nana
 version: "1.0"
 author: Denis Sologub <contedevel2010@gmail.com>
-about: Nana Interpreter. ConteDevel, 2021.
+about: Nana Interpreter, 2021.
 args:
     - INPUT:
         help: Sets the Nana module to use

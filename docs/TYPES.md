@@ -29,7 +29,7 @@ A list is an ordered sequence of elements, use `[]` to declare a list data type 
 A tuple is a group of logically related elements, use `()` to declare a tuple data type or create a new tuple and `[]` to access a tuple element. As in list case, an indexing starts with zero (`0`). For example:
 
 ```
-t: (Str, Num) = ('Hello, World!', 3.14)
+t: {Str, Num} = {'Hello, World!', 3.14}
 t[0]
 t[1 + 2]
 ```
@@ -46,38 +46,17 @@ d: {Str: Int} = {
 d['Key1']
 ```
 
-## Constrained dictionary
+## Structure
 
-Nana allows to specify keys explicitly as it's shown below:  
+A structure is a bit similar like the dictionary, but it allows to specify value types for diffferent keys and set default values:  
 
 ```
 d1: {key1: Int, key2: Int} = {
-    key1: 1,
-    key2: 2
+    key1 = 1,
+    key2 = 2
 }
-d2: {'key1': Int, 'key2': Int} = {
-    'key1': 1,
-    'key2': 2
-}
-d3: {1: Bit, 0: Bit} = {
-    1: TRUE,
-    0: FALSE
-}
+d1.key1
 ```
-
-Basing on previos samples the next expression is valid:
-
-```
-d4: {'Key1': Int, 'Key2': Int} = d
-```
-
-This is invalid:
-
-```
-d4: {Key1: Int, Key2: Int} = d
-```
-
-because of there are named keys in `d4` instead of `Str` keys in `d`.
 
 ## Domain
 
@@ -100,14 +79,14 @@ Client = <User, Bot>
 
 ## Fun
 
-A `Fun` data type allows to declare a function signature, it can be used to restrict a set of functions that can be passed to variable or as an argument of called function. Use a `(type) -> type` schema to declare `Fun` where the first type is arguments and the last is a returned value of the function. By default Nana function returns a tuple with zero `(0)`. Look at examples below to learn more:
+A `Fun` data type allows to declare a function signature, it can be used to restrict a set of functions that can be passed to variable or as an argument of called function. Use a `(type) -> type` schema to declare `Fun` where the first type is arguments and the last is a returned value of the function. By default Nana function returns `0`. Look at examples below to learn more:
 
 ```
-foo() {
+foo = () {
     ret ()
 }
 
-boo(a: Str) -> Bit {
+boo = (a: Str) -> Bit {
     ret FALSE
 }
 

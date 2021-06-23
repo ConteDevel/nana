@@ -1,3 +1,0 @@
-mod io.[println as pl, print as p] as *
-pub mod threading as *
-mod './test' as test

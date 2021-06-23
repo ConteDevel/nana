@@ -1,0 +1,63 @@
+# Integer
+var1: Int = -1
+
+# Number
+var2: Num = -0.1
+
+# String
+var3: Str = 'String'
+
+# Bit
+var4: Bit = true
+
+# Function
+var5: ([Str]) -> Bit = (args: [Str]) -> Bit {
+    ret true
+}
+
+# List
+var6: [Int] = [0, 1, 2, 3]
+
+# Tuple
+var7: {Str, Bit} = {'Option', false}
+
+# Dictionary
+var8: {Str: Int} = {
+    'Key1': 5,
+    'Key2': 6,
+}
+
+# Structure
+var9: {
+    key1: Int,
+    key2: Str
+} = {
+    key1 = 1,
+    key2 = 2,
+}
+
+# Type
+Var10: <> = <{
+    key1: Int,
+    key2 = 'Test',
+    key3 = (a: Int, b: Int) -> {
+        ret a + b
+    }
+}, none>
+
+# Variable of Var10 type
+var11: Var10 = Var10::none
+
+# Variable of Var10 type
+var12: Var10 = Var10::{
+    key1 = 10
+}
+
+# Type 2
+Var13 = <Int, Num>
+
+# Variable of Var13 type
+var14: Var13 = 1
+
+# Dynamic type
+var15: Any = 'String'
