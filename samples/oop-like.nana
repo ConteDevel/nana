@@ -1,0 +1,40 @@
+mod sys
+
+Shape = {
+    position = {x: 0, y: 0},
+    isFilled = true,
+    draw: (c: Canvas)
+}
+
+Circle = Shape(
+    radius = 1.0,
+    # Object functions
+    draw = (c: Canvas) {
+        # `this` is a pointer to related outer scope
+        drawer = if this.isFilled { c.drawCircle } else { c.drawFilledCircle }
+        drawer(this.position.x, this.position.y, this.radius)
+    }
+)
+
+Rectangle = Shape(
+    size = {
+        width = 1.0,
+        height = 1.0,
+    },
+
+    draw = (c: Canvas) {
+        drawer = if this.isFilled { c.drawRect } else { c.drawFilledRect }
+        drawer(
+            this.position.x,
+            this.position.y,
+            this.size.width,
+            this.size.height,
+        )
+    }
+)
+
+if sys.entrypoint == 'main' {
+    canvas = sys.Canvas.getInstance()
+    shapes = [Circle(), Rectangle(size = {width = 2, height = 2})]
+    shapes.forEach { it.draw() }
+}

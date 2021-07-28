@@ -1,0 +1,23 @@
+mod io
+
+y = 0
+
+x = fit y {
+    0: 1,
+    1: 0,
+    _: {
+       ret -1 
+    }
+}
+
+if isNum(x) {
+    io.println('number')
+}
+
+mode = getMode()
+
+if mode == 1 {
+
+} elif mode == 2 {
+
+}
