@@ -3,7 +3,7 @@ mod sys
 Shape = {
     position = {x: 0, y: 0},
     isFilled = true,
-    draw: (c: Canvas)
+    draw: (c: Canvas) -> void
 }
 
 Circle = Shape(
