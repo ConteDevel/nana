@@ -11,24 +11,28 @@ var3: Str = 'String'
 var4: Bit = true
 
 # Function
-var5: ([Str]) -> Bit = (args: [Str]) -> Bit {
-    ret true
-}
+var5: ([Str]) Bit = (args: [Str]) Bit: true
 
 # List
 var6: [Int] = [0, 1, 2, 3]
 
 # Tuple
-var7: {Str, Bit} = {'Option', false}
+var7: (Str, Bit) = ('Option', false)
+
+# Named typle
+var8: (option: Str, flag: Bit) = ('Option', false)
 
 # Dictionary
-var8: {Str: Int} = {
-    'Key1': 5,
-    'Key2': 6,
+var9: {Str: Int} = {
+    'Key1' = 5,
+    'Key2' = 6,
 }
 
+# Set
+var10: {Int} = {1, 2, 3, 4}
+
 # Structure
-var9: {
+var11: {
     key1: Int,
     key2: Str
 } = {
@@ -37,27 +41,25 @@ var9: {
 }
 
 # Type
-Var10: <> = <{
+Var12: <> = <{
     key1: Int,
     key2 = 'Test',
-    key3 = (a: Int, b: Int) -> {
-        ret a + b
-    }
+    key3 = (a: Int, b: Int) Int -> a + b
 }, none>
 
-# Variable of Var10 type
-var11: Var10 = Var10::none
+# Variable of Var12 type
+var13: Var12 = Var12::none
 
-# Variable of Var10 type
-var12: Var10 = Var10::{
+# Variable of Var12 type
+var14: Var12 = Var12::{
     key1 = 10
 }
 
 # Type 2
-Var13 = <Int, Num>
+Var15 = <Int, Num>
 
-# Variable of Var13 type
-var14: Var13 = 1
+# Variable of Var15 type
+var16: Var15 = 1
 
 # Dynamic type
-var15: Any = 'String'
+var17: Any = 'String'

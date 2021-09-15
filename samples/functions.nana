@@ -1,0 +1,5 @@
+func = (): ...
+
+sum = (a, b): a + b
+
+typed_sum = (a: <Int, Num>, b: <Int, Num>): a + b

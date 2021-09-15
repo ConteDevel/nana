@@ -1,40 +1,10 @@
-mod sys
+mod math
 
-Shape = {
-    position = {x: 0, y: 0},
-    isFilled = true,
-    
-    draw: (c: Canvas) -> void
-}
+Position = <(x: Num, y: Num)>
 
-Circle = Shape(
-    radius = 1.0,
-    
-    draw = (c: Canvas) {
-        drawer = if this.isFilled { c.drawCircle } else { c.drawFilledCircle }
-        drawer(this.position.x, this.position.y, this.radius)
-    }
-)
+Circle = <{
+    position = Position(x=0, y=0),
+    radius = 1
+}>
 
-Rectangle = Shape(
-    size = {
-        width = 1.0,
-        height = 1.0,
-    },
-
-    draw = (c: Canvas) {
-        drawer = if this.isFilled { c.drawRect } else { c.drawFilledRect }
-        drawer(
-            this.position.x,
-            this.position.y,
-            this.size.width,
-            this.size.height,
-        )
-    }
-)
-
-if sys.entrypoint == 'main' {
-    canvas = sys.Canvas.getInstance()
-    shapes = [Circle(), Rectangle(size = {width = 2, height = 2})]
-    shapes.forEach { it.draw() }
-}
+radius = (c: Circle): 2 * math.pi * c.radius
